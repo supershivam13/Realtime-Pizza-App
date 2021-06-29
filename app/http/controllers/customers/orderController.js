@@ -7,8 +7,6 @@ function orderController() {
       // validate request
       const { phone, address } = req.body;
 
-      console.log(phone);
-
       if (!phone || !address) {
         req.flash("error", "All fields are required");
         return res.redirect("/cart");
