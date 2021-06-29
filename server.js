@@ -86,7 +86,6 @@ const server = app.listen(PORT, () => {
 const io = require("socket.io")(server);
 io.on("connection", (socket) => {
   //Join
-  console.log(socket.id);
   socket.on("join", (orderId) => {
     socket.join(orderId);
   });
