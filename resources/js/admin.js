@@ -1,8 +1,9 @@
 import axios from "axios";
 import moment from "moment";
 import Noty from "noty";
+import { Socket } from "socket.io";
 
-export function initAdmin() {
+export function initAdmin(socket) {
   const orderTableBody = document.querySelector("#orderTableBody");
   let orders = [];
 
@@ -101,4 +102,16 @@ export function initAdmin() {
       })
       .join("");
   }
+
+  socket.on("orderPlaced", (order) => {
+    new Noty({
+      type: "success",
+      timeout: 1000,
+      text: "New order placed",
+      progressBar: false,
+    }).show();
+    orders.unshift(order);
+    orderTableBody.innerHTML = "";
+    orderTableBody.innerHTML = generateMarkup(orders);
+  });
 }
